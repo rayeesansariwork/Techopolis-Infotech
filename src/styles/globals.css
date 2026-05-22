@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  html,
+  body {
+    background-color: theme('colors.canvas');
+    color: theme('colors.body');
+    font-family: theme('fontFamily.sans');
+    font-size: 16px;
+    line-height: 1.55;
+  }
+
+  body {
+    min-height: 100vh;
+  }
+
+  ::selection {
+    background-color: theme('colors.primary');
+    color: theme('colors.on-primary');
+  }
+
+  /* Default focus ring — coral, calm */
+  :focus-visible {
+    outline: 2px solid theme('colors.primary');
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Disable smooth scrolling and motion for users who prefer it */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes fade-up {
+  0%   { opacity: 0; transform: translateY(12px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@layer components {
+  .font-display {
+    font-family: theme('fontFamily.display');
+    font-feature-settings: 'liga' 1, 'kern' 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track {
+      animation: none;
+    }
+  }
+}
