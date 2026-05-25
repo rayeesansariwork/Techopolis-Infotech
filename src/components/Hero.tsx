@@ -24,12 +24,12 @@ export function Hero() {
       <Container>
         <div className="grid lg:grid-cols-12 gap-lg lg:gap-xl items-center">
           <div className="lg:col-span-5 flex flex-col gap-md lg:gap-lg">
-            <div className="inline-flex items-center gap-sm w-fit px-md h-8 rounded-pill bg-ink/[0.06] backdrop-blur-sm border border-ink/10">
-              <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-primary-active" />
-              <span className="text-caption-up uppercase text-ink/80">
+            {/* <div className="inline-flex items-center gap-sm w-fit px-md h-8 rounded-pill bg-ink/[0.06] backdrop-blur-sm border border-ink/10"> */}
+              {/* <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-primary-active" /> */}
+              {/* <span className="text-caption-up uppercase text-ink/80">
                 Techopolis Infotech · since 2022
-              </span>
-            </div>
+              </span> */}
+            {/* </div> */}
             <h2
               id="hero-title"
               className="font-display text-[36px] sm:text-[52px] md:text-[60px] lg:text-[72px] xl:text-[84px] leading-[1.05] tracking-[-1px] sm:tracking-[-1.5px] text-ink"
