@@ -13,7 +13,7 @@ export function Logo({ tone = 'light', className = '' }: LogoProps) {
       className={`inline-flex items-center gap-xs ${text} ${className}`}
       aria-label="Techopolis Infotech — home"
     >
-      <SpikeMark size={18} className="text-primary" title="Techopolis mark" />
+      <SpikeMark size={36} className="text-primary" title="Techopolis mark" />
       <span className="font-display text-title-lg leading-none tracking-tight">
         Techopolis<span className="text-primary">.</span>
       </span>

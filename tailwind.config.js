@@ -11,38 +11,42 @@ export default {
     },
     extend: {
       colors: {
-        // Brand & accent
-        primary: '#cc785c',
-        'primary-active': '#a9583e',
-        'primary-disabled': '#e6dfd8',
-        'accent-teal': '#5db8a6',
-        'accent-amber': '#e8a55a',
+        // Brand & accent — CC-inspired palette
+        primary: '#D8FA38',           // electric lime
+        'primary-active': '#B8E020',  // deeper lime for hover
+        'primary-disabled': '#EEF6CC',
+        secondary: '#FFB6D9',          // bubblegum pink
+        'secondary-active': '#FF8EC0',
+        tertiary: '#E5FF3D',           // bright yellow
+        'tertiary-active': '#D4EE2A',
+        peach: '#FFD4BC',              // warm salmon — for highlight cards
+        'peach-active': '#F5BEA0',
         success: '#5db872',
         warning: '#d4a017',
         error: '#c64545',
 
         // Text
-        ink: '#141413',
-        'body-strong': '#252523',
-        body: '#3d3d3a',
-        muted: '#6c6a64',
-        'muted-soft': '#8e8b82',
-        'on-primary': '#ffffff',
-        'on-dark': '#faf9f5',
-        'on-dark-soft': '#a09d96',
+        ink: '#000000',
+        'body-strong': '#1a1a1a',
+        body: '#333333',
+        muted: '#6b6b6b',
+        'muted-soft': '#8c8c8c',
+        'on-primary': '#000000',       // black text on lime
+        'on-dark': '#ffffff',
+        'on-dark-soft': '#a8a8a8',
 
         // Surfaces
-        canvas: '#faf9f5',
-        'surface-soft': '#f5f0e8',
-        'surface-card': '#efe9de',
-        'surface-cream-strong': '#e8e0d2',
-        'surface-dark': '#181715',
-        'surface-dark-elevated': '#252320',
-        'surface-dark-soft': '#1f1e1b',
+        canvas: '#ffffff',
+        'surface-soft': '#f5f5f0',
+        'surface-card': '#ebebe5',
+        'surface-cream-strong': '#dcdcd2',
+        'surface-dark': '#0a0a0a',
+        'surface-dark-elevated': '#1a1a1a',
+        'surface-dark-soft': '#141414',
 
         // Lines
-        hairline: '#e6dfd8',
-        'hairline-soft': '#ebe6df',
+        hairline: '#e6e6e0',
+        'hairline-soft': '#efefe9',
       },
       fontFamily: {
         // Copernicus / Tiempos Headline substitute
@@ -90,7 +94,7 @@ export default {
         // Used rarely; depth comes from surface contrast
         soft: '0 1px 3px rgba(20, 20, 19, 0.08)',
         lift: '0 8px 24px -10px rgba(20, 20, 19, 0.18)',
-        'focus-coral': '0 0 0 3px rgba(204, 120, 92, 0.22)',
+        'focus-coral': '0 0 0 3px rgba(216, 250, 56, 0.45)',
       },
       maxWidth: {
         content: '1600px',

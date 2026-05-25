@@ -1,12 +1,19 @@
+import { useSmoothScroll } from './hooks/useSmoothScroll';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
-import { Services } from './components/Services';
-import { Clients } from './components/Clients';
-import { WhyUs } from './components/WhyUs';
+import { TrustedBy } from './components/TrustedBy';
+import { Stats } from './components/Stats';
+import { FocusAreas } from './components/FocusAreas';
+import { Sectors } from './components/Sectors';
+import { Process } from './components/Process';
+import { Blog } from './components/Blog';
 import { Contact } from './components/Contact';
+import { Newsletter } from './components/Newsletter';
 import { Footer } from './components/Footer';
 
 export default function App() {
+  useSmoothScroll();
+
   return (
     <>
       <a
@@ -18,10 +25,14 @@ export default function App() {
       <Navbar />
       <main>
         <Hero />
-        <Services />
-        <Clients />
-        <WhyUs />
+        <TrustedBy />
+        <Stats />
+        <FocusAreas />
+        <Sectors />
+        <Process />
+        <Blog />
         <Contact />
+        <Newsletter />
       </main>
       <Footer />
     </>

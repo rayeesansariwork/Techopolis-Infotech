@@ -1,125 +1,68 @@
 import { useEffect, useRef, useState } from 'react';
-import { Menu, X, ArrowRight } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { Container } from './ui/Container';
-import { Button } from './ui/Button';
 import { Logo } from './ui/Logo';
-import { useScrollSpy } from '../hooks/useScrollSpy';
 
 const NAV_ITEMS = [
-  { id: 'home', label: 'Home' },
-  { id: 'services', label: 'Services' },
-  { id: 'clients', label: 'Clients' },
-  { id: 'why-us', label: 'Why Us' },
-  { id: 'contact', label: 'Contact' },
+  { id: 'what-we-do', label: 'What we do' },
+  { id: 'sectors', label: 'Sectors' },
+  { id: 'how-we-work', label: 'How we work' },
+  { id: 'blog', label: 'Field notes' },
 ];
 
 export function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const drawerRef = useRef<HTMLDivElement>(null);
   const firstLinkRef = useRef<HTMLAnchorElement>(null);
-  const active = useScrollSpy(NAV_ITEMS.map((i) => i.id));
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
-  // Lock body + focus trap in drawer
   useEffect(() => {
     if (!open) return;
-    const prevOverflow = document.body.style.overflow;
+    const prev = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
-
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setOpen(false);
-      if (e.key === 'Tab' && drawerRef.current) {
-        const focusables = drawerRef.current.querySelectorAll<HTMLElement>(
-          'a[href], button:not([disabled])',
-        );
-        if (focusables.length === 0) return;
-        const first = focusables[0];
-        const last = focusables[focusables.length - 1];
-        if (e.shiftKey && document.activeElement === first) {
-          e.preventDefault();
-          last.focus();
-        } else if (!e.shiftKey && document.activeElement === last) {
-          e.preventDefault();
-          first.focus();
-        }
-      }
     };
-
     window.addEventListener('keydown', onKey);
-    // Focus first interactive in drawer
     requestAnimationFrame(() => firstLinkRef.current?.focus());
-
     return () => {
-      document.body.style.overflow = prevOverflow;
+      document.body.style.overflow = prev;
       window.removeEventListener('keydown', onKey);
     };
   }, [open]);
 
-  const handleNav = (id: string) => (e: React.MouseEvent) => {
-    e.preventDefault();
-    setOpen(false);
-    const el = document.getElementById(id);
-    if (el) {
-      const top = el.getBoundingClientRect().top + window.scrollY - 72;
-      window.scrollTo({ top, behavior: 'smooth' });
-    }
-  };
+  // Smooth scroll is handled globally by useSmoothScroll (Lenis).
+  // We just close the mobile drawer when a link is clicked.
+  const closeDrawer = () => setOpen(false);
 
   return (
     <>
-      <header
-        className={`fixed top-0 inset-x-0 z-50 transition-all duration-250 ease-editorial ${
-          scrolled
-            ? 'bg-canvas/85 backdrop-blur-md border-b border-hairline'
-            : 'bg-transparent border-b border-transparent'
-        }`}
-      >
-        <Container as="nav" aria-label="Primary">
-          <div className="flex items-center justify-between h-16">
+      <header className="sticky top-0 inset-x-0 z-50" style={{ backgroundColor: '#ebf4fb' }}>
+        <Container as="nav" aria-label="Primary" className="py-md">
+          <div className="flex items-center justify-between gap-lg">
             <Logo />
 
-            <ul className="hidden md:flex items-center gap-xs" role="list">
-              {NAV_ITEMS.map((item) => {
-                const isActive = active === item.id;
-                return (
-                  <li key={item.id}>
-                    <a
-                      href={`#${item.id}`}
-                      onClick={handleNav(item.id)}
-                      aria-current={isActive ? 'page' : undefined}
-                      className={`relative inline-flex items-center px-md h-9 text-nav rounded-md transition-colors duration-250 ${
-                        isActive ? 'text-ink' : 'text-muted hover:text-ink'
-                      }`}
-                    >
-                      {item.label}
-                      <span
-                        aria-hidden
-                        className={`absolute left-md right-md -bottom-0.5 h-px bg-primary transition-opacity duration-250 ${
-                          isActive ? 'opacity-100' : 'opacity-0'
-                        }`}
-                      />
-                    </a>
-                  </li>
-                );
-              })}
+            <ul className="hidden md:flex items-center gap-lg" role="list">
+              {NAV_ITEMS.map((item) => (
+                <li key={item.id}>
+                  <a
+                    href={`#${item.id}`}
+                    onClick={closeDrawer}
+                    className="text-nav text-ink hover:text-primary transition-colors duration-250"
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+              <li>
+                <a
+                  href="#contact"
+                  onClick={closeDrawer}
+                  className="inline-flex items-center h-10 px-lg rounded-pill border-2 border-ink text-nav text-ink hover:bg-ink hover:text-on-dark transition-colors duration-250"
+                >
+                  Get a Quote
+                </a>
+              </li>
             </ul>
-
-            <div className="hidden md:block">
-              <Button
-                variant="primary"
-                iconRight={<ArrowRight size={14} />}
-                onClick={handleNav('contact') as unknown as React.MouseEventHandler<HTMLButtonElement>}
-              >
-                Talk to us
-              </Button>
-            </div>
 
             <button
               type="button"
@@ -135,7 +78,6 @@ export function Navbar() {
         </Container>
       </header>
 
-      {/* Mobile drawer */}
       <div
         id="mobile-drawer"
         ref={drawerRef}
@@ -148,33 +90,24 @@ export function Navbar() {
       >
         <div className="h-16" />
         <Container className="py-xl flex flex-col gap-md">
-          {NAV_ITEMS.map((item, idx) => {
-            const isActive = active === item.id;
-            return (
-              <a
-                key={item.id}
-                ref={idx === 0 ? firstLinkRef : undefined}
-                href={`#${item.id}`}
-                onClick={handleNav(item.id)}
-                aria-current={isActive ? 'page' : undefined}
-                className={`font-display text-display-md py-xs border-b border-hairline ${
-                  isActive ? 'text-ink' : 'text-muted'
-                }`}
-              >
-                {item.label}
-              </a>
-            );
-          })}
-          <div className="pt-md">
-            <Button
-              variant="primary"
-              className="w-full"
-              iconRight={<ArrowRight size={14} />}
-              onClick={handleNav('contact') as unknown as React.MouseEventHandler<HTMLButtonElement>}
+          {NAV_ITEMS.map((item, idx) => (
+            <a
+              key={item.id}
+              ref={idx === 0 ? firstLinkRef : undefined}
+              href={`#${item.id}`}
+              onClick={closeDrawer}
+              className="font-display text-display-md py-xs border-b border-hairline text-ink"
             >
-              Talk to us
-            </Button>
-          </div>
+              {item.label}
+            </a>
+          ))}
+          <a
+            href="#contact"
+            onClick={closeDrawer}
+            className="mt-md inline-flex items-center justify-center h-12 px-lg rounded-pill border-2 border-ink text-nav text-ink"
+          >
+            Get a Quote
+          </a>
         </Container>
       </div>
     </>

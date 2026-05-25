@@ -8,10 +8,10 @@
   }
 
   html {
-    scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    overscroll-behavior: none;
   }
 
   html,
@@ -21,10 +21,27 @@
     font-family: theme('fontFamily.sans');
     font-size: 16px;
     line-height: 1.55;
+    overflow-x: clip;
   }
 
   body {
     min-height: 100vh;
+    position: relative;
+  }
+
+  /* Lenis smooth scroll — applied while smoothness is active */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+  .lenis.lenis-stopped {
+    overflow: clip;
   }
 
   ::selection {
